@@ -34,32 +34,17 @@ public class Hands : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for(int i = 0; i < entityList.Count; i++) {
-            if (entityList[i] == null)
-                entityList.RemoveAt(i);
-        }
-
         if(heldEntity != null) {
-            heldEntity.gameObject.tag = "Projectile";
             Vector3 smoothPose = Vector3.Lerp(heldEntity.position, holdTransform.position, 0.15f);
             heldEntity.MovePosition(smoothPose);
         }
 
-        if (Input.GetButtonDown("Fire1")) {
-            if(heldEntity != null) {
-                heldEntity.isKinematic = false;
-                Vector3 forceVec = holdTransform.transform.forward.normalized * launchFor;
-                heldEntity.AddForce(forceVec, ForceMode.VelocityChange);
-                heldEntity = null;
-                return;
-            }
-            foreach (Rigidbody entity in entityList) {
-                Vector3 entityPos = entity.GetComponent<Transform>().position;
-                Vector3 forceVec = entityPos - forceOrigin.position;
-                float scalingForce = 100 * Mathf.Exp(3 / forceVec.magnitude);
-                forceVec.Normalize();
-                entity.AddForce(forceVec * scalingForce);
-            }
+        if (Input.GetButtonDown("Fire1") && heldEntity != null) {
+            heldEntity.isKinematic = false;
+            Vector3 forceVec = holdTransform.transform.forward.normalized * launchFor;
+            heldEntity.AddForce(forceVec, ForceMode.VelocityChange);
+            heldEntity = null;
+            return;
         }
 
         if (Input.GetButtonDown("Fire2")) {
