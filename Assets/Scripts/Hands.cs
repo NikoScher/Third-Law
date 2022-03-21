@@ -5,14 +5,13 @@ using UnityEngine;
 public class Hands : MonoBehaviour
 {
     //Fields
-    [SerializeField] Transform forceOrigin;
     [SerializeField] Transform holdTransform;
 
     List<Rigidbody> entityList = new List<Rigidbody>();
 
     Rigidbody heldEntity = null;
 
-    public float launchFor = 40;
+    public float launchFor = 10;
 
     void OnTriggerEnter(Collider collider)
     {
@@ -41,7 +40,7 @@ public class Hands : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") && heldEntity != null) {
             heldEntity.isKinematic = false;
-            Vector3 forceVec = holdTransform.transform.forward.normalized * launchFor;
+            Vector3 forceVec = holdTransform.transform.forward.normalized * heldEntity.mass * launchFor;
             heldEntity.AddForce(forceVec, ForceMode.VelocityChange);
             heldEntity = null;
             return;
@@ -57,7 +56,7 @@ public class Hands : MonoBehaviour
                 float minDist = float.MaxValue;
                 foreach (Rigidbody entity in entityList) {
                     Vector3 entityPos = entity.GetComponent<Transform>().position;
-                    Vector3 dispVec = entityPos - forceOrigin.position;
+                    Vector3 dispVec = entityPos - transform.position;
                     if (dispVec.magnitude < minDist) {
                         heldEntity = entity;
                         minDist = dispVec.magnitude;
