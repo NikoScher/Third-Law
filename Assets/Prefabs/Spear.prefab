@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 4732186522313931758}
   - component: {fileID: 41030020449619835}
   - component: {fileID: 3737749337745476710}
+  - component: {fileID: 295871022283477755}
   m_Layer: 0
-  m_Name: StickStick
+  m_Name: Spear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,3 +114,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &295871022283477755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739027334487555410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75785a78aaa2ae4495d1ee27448868a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
