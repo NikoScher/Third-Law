@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody rb;
 
-    public float launchFor = 5;
+    public float launchFor = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -50,17 +50,15 @@ public class PlayerController : MonoBehaviour
         }
 
         if (Input.GetButtonDown("Fire1") && heldEntity != null) {
-            heldEntity.isKinematic = false;
             Vector3 forceVec = holdTransform.transform.forward.normalized * heldEntity.mass * launchFor;
             heldEntity.AddForce(forceVec, ForceMode.VelocityChange);
             heldEntity = null;
-            rb.AddForce(-forceVec, ForceMode.VelocityChange);
+            rb.AddForce(-forceVec*0.25f, ForceMode.VelocityChange);
             return;
         }
 
         if (Input.GetButtonDown("Fire2")) {
             if(heldEntity != null) {
-                heldEntity.isKinematic = false;
                 heldEntity = null;
                 return;
             }
@@ -74,7 +72,6 @@ public class PlayerController : MonoBehaviour
                         minDist = dispVec.magnitude;
                     }
                 }
-                heldEntity.isKinematic = true;
             }
         }
     }
