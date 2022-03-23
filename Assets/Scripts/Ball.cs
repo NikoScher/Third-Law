@@ -17,13 +17,13 @@ public class Ball : MonoBehaviour
     }
 
     //upon a collision
-    private void OnTriggerEnter(Collider c)
+    private void OnCollisionEnter(Collision c)
     {
         //if the object collided with is marked as deadly
-        if (c.tag == "Deadly")
+        if (c.gameObject.tag == "Deadly")
         {
             //destroy the ball
-            Destroy(this);
+            Destroy(gameObject);
             Debug.Log("https://youtu.be/oiuyhxp4w9I?t=6");
         }
     }

@@ -36,6 +36,19 @@ public class PlayerController : MonoBehaviour
         entityList.Remove(entity);
     }
 
+    
+    private void OnCollisionEnter(Collision c)
+    {
+        //kill wall interaction
+        //if the object collided with is marked as deadly
+        if (c.gameObject.tag == "Deadly")
+        {
+            //destroy the ball
+            Destroy(gameObject);
+            Debug.Log("https://youtu.be/oiuyhxp4w9I?t=6");
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
