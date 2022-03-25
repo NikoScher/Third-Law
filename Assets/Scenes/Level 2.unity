@@ -349,6 +349,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallGoal
       objectReference: {fileID: 0}
+    - target: {fileID: 2466802713452058388, guid: 38e6639f317abe9439511f0ec1f84342, type: 3}
+      propertyPath: nextSceneNum
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5212718878029762399, guid: 38e6639f317abe9439511f0ec1f84342, type: 3}
       propertyPath: m_RootOrder
       value: 3
