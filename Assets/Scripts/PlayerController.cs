@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
         // Throw
         if (Input.GetButtonDown("Fire1") && heldEntity != null) {
-            heldEntity.isKinematic = false;
+            //heldEntity.isKinematic = false;
             heldEntity.velocity = rb.velocity;
             Vector3 forceVec = holdTransform.transform.forward.normalized * launchFor;
             heldEntity.AddForce(forceVec / heldEntity.mass, ForceMode.VelocityChange);
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
         // Pickup
         if (Input.GetButtonDown("Fire2") && grabTimer < 0) {
             if(heldEntity != null) {
-                heldEntity.isKinematic = false;
+                //heldEntity.isKinematic = false;
                 heldEntity.velocity = rb.velocity;
                 heldEntity = null;
                 return;
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
                         minDist = dispVec.magnitude;
                     }
                 }
-                heldEntity.isKinematic = true;
+                //heldEntity.isKinematic = true;
                 rb.velocity = (rb.mass*rb.velocity + heldEntity.mass*heldEntity.velocity) / (rb.mass + heldEntity.mass);
                 heldEntity.velocity = rb.velocity;
             }
