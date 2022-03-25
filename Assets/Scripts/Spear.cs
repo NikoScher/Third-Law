@@ -4,27 +4,20 @@ using UnityEngine;
 
 public class Spear : MonoBehaviour
 {
-    Rigidbody thisSpear;
+    Rigidbody rb;
     
     // Start is called before the first frame update
     void Start()
     {
-        thisSpear = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnCollisionEnter(Collision c)
     {
-        
-    }
-    private void OnCollisionEnter(Collision c)
-    {
-        //if the object collided with is marked as deadly
-        if (c.gameObject.tag == "Deadly")
-        {
-            //lock the spear in place
-            thisSpear.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
-            Debug.Log("https://youtu.be/oiuyhxp4w9I?t=6");
+        // Lock the spear in place
+        if (c.gameObject.tag != "Player") {
+            rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+            rb.isKinematic = true;
         }
     }
 }

@@ -5,35 +5,27 @@ using UnityEngine;
 //ඞ
 public class Vent : MonoBehaviour
 {
-    
+    [SerializeField] float force = 0.25f;
+    bool hasLatched;
     public bool active, latch;
-    private bool hasLatched;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void OnTriggerStay(Collider c)
     {
-        //push code
-        if(active && (c.GetComponent<Rigidbody>() != null))
-        {
-            c.GetComponent<Rigidbody>().AddForce(-transform.forward*0.25f, ForceMode.VelocityChange);
+        // Push code
+        if(active && c.GetComponent<Rigidbody>() != null && !c.isTrigger) {
+            c.GetComponent<Rigidbody>().AddForce(transform.forward * force, ForceMode.VelocityChange);
         }
-
-
-
     }
 
     public void ButtonPressed()
     {
-        if((latch && !hasLatched) || (!latch))
-        {
+        if((latch && !hasLatched) || !latch) {
             active = !active;
             hasLatched = true;
+            if (active)
+                GetComponent<ParticleSystem>().Play();
+            else
+                GetComponent<ParticleSystem>().Stop();
         }
     }
 

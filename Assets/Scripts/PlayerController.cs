@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
 
     public float launchFor = 1;
 
+    [SerializeField] float grabMaxTime = 1.0f;
+    float grabTimer = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,41 +40,44 @@ public class PlayerController : MonoBehaviour
     }
 
     
-    private void OnCollisionEnter(Collision c)
+    private void OnCollisionEnter(Collision collider)
     {
-        //kill wall interaction
-        //if the object collided with is marked as deadly
-        if (c.gameObject.tag == "Deadly")
-        {
-            //destroy the ball
+        if (collider.gameObject.tag == "Deadly") {
             Destroy(gameObject);
-            Debug.Log("https://youtu.be/oiuyhxp4w9I?t=6");
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 temp = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y);
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(temp);
-        Vector3 targetVec = mousePos - transform.position;
+        grabTimer -= Time.deltaTime;
+
+        Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y);
+        Vector3 targetVec = Camera.main.ScreenToWorldPoint(mousePos) - transform.position;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetVec), 0.5f);
 
         if(heldEntity != null) {
-            Vector3 smoothPose = Vector3.Lerp(heldEntity.position, holdTransform.position, 0.5f);
+            Vector3 smoothPose = Vector3.Lerp(heldEntity.position, holdTransform.position, 0.1f);
             heldEntity.MovePosition(smoothPose);
+            Quaternion targetQuat = Quaternion.LookRotation(targetVec) * Quaternion.Euler(90, 0, 0);
+            heldEntity.gameObject.transform.rotation = Quaternion.Slerp(heldEntity.gameObject.transform.rotation, targetQuat, 0.5f);
         }
 
+        // Throw
         if (Input.GetButtonDown("Fire1") && heldEntity != null) {
-            Vector3 forceVec = holdTransform.transform.forward.normalized * heldEntity.mass * launchFor;
-            heldEntity.AddForce(forceVec, ForceMode.VelocityChange);
+            heldEntity.velocity = rb.velocity;
+            Vector3 forceVec = holdTransform.transform.forward.normalized * launchFor;
+            heldEntity.AddForce(forceVec / heldEntity.mass, ForceMode.VelocityChange);
             heldEntity = null;
-            rb.AddForce(-forceVec*0.25f, ForceMode.VelocityChange);
+            rb.AddForce(-forceVec, ForceMode.VelocityChange);
+            grabTimer = grabMaxTime;
             return;
         }
 
-        if (Input.GetButtonDown("Fire2")) {
+        // Pickup
+        if (Input.GetButtonDown("Fire2") && grabTimer < 0) {
             if(heldEntity != null) {
+                heldEntity.velocity = rb.velocity;
                 heldEntity = null;
                 return;
             }
@@ -85,6 +91,8 @@ public class PlayerController : MonoBehaviour
                         minDist = dispVec.magnitude;
                     }
                 }
+                rb.velocity = (rb.mass*rb.velocity + heldEntity.mass*heldEntity.velocity) / (rb.mass + heldEntity.mass);
+                heldEntity.velocity = rb.velocity;
             }
         }
     }

@@ -4,26 +4,21 @@ using UnityEngine;
 
 public class Button : MonoBehaviour
 {
-
+    [SerializeField] GameObject onState;
     public GameObject[] interactObjects;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    bool active = false;
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter(Collider c)
     {
-        
-    }
+        if (!c.isTrigger) {
+            active = !active;
+            GetComponent<MeshRenderer>().enabled = !active;
+            onState.GetComponent<MeshRenderer>().enabled = active;
 
-     void OnCollisionEnter(Collision collision)
-    {
-        foreach (GameObject g in interactObjects)
-        {
-            g.SendMessage("ButtonPressed");
+            foreach (GameObject g in interactObjects) {
+                g.SendMessage("ButtonPressed");
+            }
         }
     }
 }
