@@ -16,6 +16,8 @@ public class Spear : MonoBehaviour
     {
         // Lock the spear in place
         if (c.gameObject.tag != "Player") {
+            //transform.parent = c.transform;
+            //this did not help
             rb.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
             rb.isKinematic = true;
         }
