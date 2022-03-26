@@ -40,11 +40,10 @@ public class PlayerController : MonoBehaviour
     }
 
     
-    private void OnCollisionEnter(Collision collider)
+    void OnCollisionEnter(Collision c)
     {
-        if (collider.gameObject.tag == "Deadly") {
+        if (c.gameObject.tag == "Deadly")
             Destroy(gameObject);
-        }
     }
 
     // Update is called once per frame
