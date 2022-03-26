@@ -15,8 +15,13 @@ public class Plunger : MonoBehaviour
     void OnTriggerEnter(Collider c)
     {
         // Lock the spear in place
-        if (c.gameObject.tag != "Player" && c.gameObject.tag != "Deadly") {
-            transform.SetParent(c.gameObject.transform.parent.transform, true);
+        if (c.gameObject.tag != "Player" && c.gameObject.tag != "Deadly" && !c.isTrigger) {
+            if (c.gameObject.tag == "Grab") {
+                transform.SetParent(c.gameObject.transform.GetChild(0).gameObject.transform, true);
+            }
+            else {
+                transform.SetParent(c.gameObject.transform.parent.transform, true);
+            }
             Destroy(rb);
         }
     }
