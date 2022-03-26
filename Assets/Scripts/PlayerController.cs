@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -45,7 +46,7 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter(Collision c)
     {
         if (c.gameObject.tag == "Deadly")
-            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     // Update is called once per frame

@@ -13,6 +13,8 @@ public class RailLogic : MonoBehaviour
     [SerializeField] GameObject wall;
     Vector3 goalPos;
 
+    [SerializeField] bool johnMode = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,17 +24,23 @@ public class RailLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (latch) {
+        if (!johnMode && latch) {
             wall.transform.position = Vector3.MoveTowards(wall.transform.position, goalPos, speed * Time.deltaTime);
             if (wall.transform.position == goalPos) {
                 atEnd = !atEnd;
-                if (atEnd) {
+                if (atEnd)
                     goalPos = start.transform.position;
-                }
-                else {
+                else
                     goalPos = end.transform.position;
-                }
             }
+        }
+
+        if (johnMode) {
+            wall.transform.position = Vector3.MoveTowards(wall.transform.position, goalPos, speed * Time.deltaTime);
+            if (latch)
+                goalPos = start.transform.position;
+            else
+                goalPos = end.transform.position;
         }
     }
 
