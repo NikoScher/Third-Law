@@ -51,6 +51,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        for(int i = 0; i < entityList.Count; i++) {
+            if (entityList[i] == null)
+                entityList.RemoveAt(i);
+        }
+
         grabTimer -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.F)) {

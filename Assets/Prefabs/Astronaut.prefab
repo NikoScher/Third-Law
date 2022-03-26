@@ -667,8 +667,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 1, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0.1}
+  m_Size: {x: 0.25, y: 1, z: 0.25}
+  m_Center: {x: 0, y: 0, z: 0.15}
 --- !u!114 &6648200045703084505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,7 +683,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holdTransform: {fileID: 6649342095784410143}
   launchFor: 2
-  grabMaxTime: 1
+  grabMaxTime: 0.5
 --- !u!1 &6648200861706076823
 GameObject:
   m_ObjectHideFlags: 0
