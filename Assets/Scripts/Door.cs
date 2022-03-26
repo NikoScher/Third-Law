@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    bool hasLatched;
     public bool latch;
-    public GameObject door;
+
+    Animator am;
     
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        am = GetComponent<Animator>();
+        am.SetBool("character_nearby", latch);
+    }
+
     void ButtonPressed()
     {
-        if((latch && !hasLatched) || !latch) {
-            door.SetActive(!door.activeSelf);
-            hasLatched = true;
-        }
+        latch = !latch;
+        am.SetBool("character_nearby", latch);
     }
 }
