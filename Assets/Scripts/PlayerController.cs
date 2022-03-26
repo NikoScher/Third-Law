@@ -10,8 +10,10 @@ public class PlayerController : MonoBehaviour
     Rigidbody heldEntity = null;
 
     Rigidbody rb;
-
     public float launchFor = 1;
+
+    Animator am;
+    int currAni = 0;
 
     [SerializeField] float grabMaxTime = 1.0f;
     float grabTimer = 0.0f;
@@ -20,6 +22,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        am = GetComponent<Animator>();
     }
 
     void OnTriggerEnter(Collider collider)
@@ -39,7 +42,6 @@ public class PlayerController : MonoBehaviour
         entityList.Remove(entity);
     }
 
-    
     void OnCollisionEnter(Collision c)
     {
         if (c.gameObject.tag == "Deadly")
@@ -50,6 +52,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         grabTimer -= Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.F)) {
+            currAni = 2 - currAni;
+            am.SetInteger("AnimationPar", currAni);
+        }
 
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y);
         Vector3 targetVec = Camera.main.ScreenToWorldPoint(mousePos) - transform.position;
