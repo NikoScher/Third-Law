@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public bool latch;
-
+    public bool isOpen, latch;
+    private bool alreadyTriggered;
     Animator am;
     
 
@@ -13,12 +13,18 @@ public class Door : MonoBehaviour
     void Start()
     {
         am = GetComponent<Animator>();
-        am.SetBool("character_nearby", latch);
+        am.SetBool("character_nearby", isOpen);
     }
 
     void ButtonPressed()
     {
-        latch = !latch;
-        am.SetBool("character_nearby", latch);
+        //If the door is not latching, toggle it open/closed. If the door is latching, only toggle the first time.
+        if(!latch || (latch && !alreadyTriggered))
+        {
+            isOpen = !isOpen;
+            am.SetBool("character_nearby", isOpen);
+            alreadyTriggered = true;
+        }
+        
     }
 }

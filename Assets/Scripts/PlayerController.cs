@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     Animator am;
     int currAni = 0;
 
-    [SerializeField] float grabMaxTime = 1.0f;
+    [SerializeField] float grabMaxTime = 0.5f;
     float grabTimer = 0.0f;
 
     // Start is called before the first frame update
