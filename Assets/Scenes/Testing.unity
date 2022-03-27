@@ -858,6 +858,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallGoal
       objectReference: {fileID: 0}
+    - target: {fileID: 3501379375054836076, guid: 4f2ec922dde4f9447863a1de42b853f1, type: 3}
+      propertyPath: nextSceneNum
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f2ec922dde4f9447863a1de42b853f1, type: 3}
 --- !u!1001 &1787040597
