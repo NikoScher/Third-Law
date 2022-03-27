@@ -64,6 +64,9 @@ public class PlayerController : MonoBehaviour
             am.SetInteger("AnimationPar", currAni);
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y);
         Vector3 targetVec = Camera.main.ScreenToWorldPoint(mousePos) - transform.position;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetVec), 0.5f);

@@ -16,8 +16,6 @@ public class Goal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         if (reached) {
             player.transform.position = Vector3.MoveTowards(player.transform.position, goalPos.transform.position, speed * Time.deltaTime);
             Vector3 goalVec = goalPos.transform.position - player.transform.position;
